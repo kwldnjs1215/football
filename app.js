@@ -149,6 +149,7 @@
       el("p", "match-code", other),
       el("p", "match-name", t.name),
       el("p", "match-line", kind === "best" ? "같이 뛰면 골이 터지는 사이" : "같이 뛰면 서로 답답해지는 사이"),
+      el("p", "match-scene", matchScene(code, other)),
       el("h4", null, kind === "best" ? "왜 잘 맞냐면" : "왜 파국이냐면")
     );
     const ol = el("ol");

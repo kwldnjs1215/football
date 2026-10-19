@@ -282,6 +282,15 @@ h1 {
 .match-code { margin: 12px 0 0; font-size: 13px; font-weight: 900; letter-spacing: 0.2em; color: var(--muted); }
 .match-name { margin: 2px 0 4px; font-size: 24px; font-weight: 900; letter-spacing: -0.02em; }
 .match-line { margin: 0 0 16px; font-size: 14px; color: #3d4a44; }
+.match-scene {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 600;
+}
 .match h4 { margin: 0 0 6px; font-size: 13px; color: var(--muted); }
 .match ol { margin: 0; padding: 0; list-style: none; counter-reset: r; }
 .match li {
