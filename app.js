@@ -5,7 +5,6 @@
     name: "",
     index: 0,
     answers: [], // "A" | "B"
-    prevScreen: "screen-intro",
   };
 
   function show(id) {
@@ -98,12 +97,54 @@
     });
   }
 
+  function el(tag, cls, text) {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  // 유형 코드 4글자를 축 이름·비율과 함께 보여준다
+  function renderLetters(code, scores) {
+    const box = $("letters");
+    box.innerHTML = "";
+    AXES.forEach((ax, i) => {
+      const isA = code[i] === ax.a;
+      const cell = el("div", "letter");
+      cell.append(el("b", null, code[i]), el("span", null, isA ? ax.aName : ax.bName));
+      if (scores) {
+        const pct = isA ? scores[i] : 100 - scores[i];
+        const bar = el("i");
+        bar.style.setProperty("--w", `${pct}%`);
+        cell.append(bar, el("small", null, `${pct}%`));
+      }
+      box.appendChild(cell);
+    });
+  }
+
+  function renderMatch(target, kind, code) {
+    const other = kind === "best" ? bestMatchOf(code) : worstMatchOf(code);
+    const t = TYPES[other];
+    const box = $(target);
+    box.innerHTML = "";
+    box.append(
+      el("p", "match-kicker", kind === "best" ? "찰떡 파트너" : "최악의 궁합"),
+      el("p", "match-code", other),
+      el("p", "match-name", t.name),
+      el("p", "match-line", kind === "best" ? "같이 뛰면 골이 터지는 사이" : "같은 팀 되면 단톡방이 조용해지는 사이"),
+      el("h4", null, kind === "best" ? "왜 잘 맞냐면" : "왜 파국이냐면")
+    );
+    const ol = el("ol");
+    matchReasons(code, kind).forEach((r) => ol.appendChild(el("li", null, r)));
+    box.appendChild(ol);
+  }
+
   function renderResult(code, scores, name) {
     const t = TYPES[code];
     if (!t) return show("screen-intro");
 
-    $("result-owner").textContent = name ? `${name}님의 풋살 유형은` : "이 풋살 유형은";
-    $("result-code").textContent = code;
+    $("report-no").textContent = `No. ${code}`;
+    $("result-owner").textContent = name ? `${name}님의 풋살 유형` : "풋살 유형";
     $("result-name").textContent = t.name;
     $("result-tagline").textContent = t.tagline;
     $("result-quote").textContent = `“${t.quote}”`;
@@ -114,38 +155,9 @@
     list("result-team", t.team);
     $("result-strength").textContent = t.strength;
     $("result-tip").textContent = t.tip;
-
-    const p = partnerOf(code);
-    $("partner-btn").innerHTML = "";
-    $("partner-btn").append(
-      Object.assign(document.createElement("span"), { textContent: `${p} · ${TYPES[p].name}` }),
-      Object.assign(document.createElement("span"), { className: "arrow", textContent: "→" })
-    );
-    $("partner-btn").onclick = () => {
-      renderResult(p, null, "");
-      history.replaceState(null, "", `?type=${p}`);
-    };
-
-    // 축 막대 (실제로 테스트한 경우에만)
-    $("axis-card").style.display = scores ? "" : "none";
-    if (scores) {
-      $("axis-bars").innerHTML = "";
-      AXES.forEach((ax, i) => {
-        const pctA = scores[i];
-        const leftWin = code[i] === ax.a;
-        const row = document.createElement("div");
-        row.className = "axis-row";
-        row.innerHTML = `
-          <div class="axis-labels">
-            <span class="${leftWin ? "win" : ""}">${ax.a} ${ax.aName} ${pctA}%</span>
-            <span class="${!leftWin ? "win" : ""}">${100 - pctA}% ${ax.bName} ${ax.b}</span>
-          </div>
-          <div class="axis-track">
-            <div class="axis-fill ${leftWin ? "left" : "right"}" style="width:${leftWin ? pctA : 100 - pctA}%"></div>
-          </div>`;
-        $("axis-bars").appendChild(row);
-      });
-    }
+    renderLetters(code, scores);
+    renderMatch("match-good", "best", code);
+    renderMatch("match-bad", "worst", code);
 
     $("btn-retry").textContent = scores ? "다시 하기" : "나도 테스트하기";
     show("screen-result");
@@ -155,7 +167,7 @@
     const code = new URLSearchParams(location.search).get("type");
     const t = TYPES[code];
     const url = `${location.origin}${location.pathname}?type=${code}`;
-    const text = `나의 풋살 MBTI는 ${code} · ${t.name}! 너는 어떤 유형이야? ⚽`;
+    const text = `나의 풋살 MBTI는 ${code} · ${t.name}! 너는 어떤 유형이야?`;
     if (navigator.share) {
       try {
         await navigator.share({ title: "풋살 MBTI", text, url });
@@ -166,42 +178,10 @@
     }
     try {
       await navigator.clipboard.writeText(`${text}\n${url}`);
-      toast("링크가 복사됐어요! 단톡방에 붙여넣기 📋");
+      toast("링크가 복사됐어요! 단톡방에 붙여넣기");
     } catch {
       prompt("아래 링크를 복사하세요", url);
     }
-  }
-
-  // ---------- 전체 유형 ----------
-  function renderAll() {
-    const grid = $("type-grid");
-    grid.innerHTML = "";
-    ["D", "P"].forEach((group) => {
-      const h = document.createElement("h3");
-      h.className = "group-title";
-      h.textContent = group === "D" ? "돌파형 D" : "연계형 P";
-      grid.appendChild(h);
-      Object.entries(TYPES)
-        .filter(([code]) => code[0] === group)
-        .forEach(([code, t]) => {
-          const b = document.createElement("button");
-          b.className = "type-tile";
-          b.innerHTML = `<span class="tc"></span><span class="tn"></span>`;
-          b.querySelector(".tc").textContent = code;
-          b.querySelector(".tn").textContent = t.name;
-          b.onclick = () => {
-            renderResult(code, null, "");
-            history.replaceState(null, "", `?type=${code}`);
-          };
-          grid.appendChild(b);
-        });
-    });
-  }
-
-  function openAll(from) {
-    state.prevScreen = from;
-    renderAll();
-    show("screen-all");
   }
 
   // ---------- 이벤트 ----------
@@ -220,9 +200,6 @@
     show("screen-intro");
     $("name-input").focus();
   };
-  $("btn-all").onclick = () => openAll("screen-result");
-  $("btn-all-intro").onclick = () => openAll("screen-intro");
-  $("btn-all-back").onclick = () => show(state.prevScreen);
 
   // 공유 링크로 들어온 경우 (?type=XXXX)
   const shared = (new URLSearchParams(location.search).get("type") || "").toUpperCase();
