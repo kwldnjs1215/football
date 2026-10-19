@@ -103,7 +103,6 @@
     if (!t) return show("screen-intro");
 
     $("result-owner").textContent = name ? `${name}님의 풋살 유형은` : "이 풋살 유형은";
-    $("result-emoji").textContent = t.emoji;
     $("result-code").textContent = code;
     $("result-name").textContent = t.name;
     $("result-tagline").textContent = t.tagline;
@@ -119,7 +118,6 @@
     const p = partnerOf(code);
     $("partner-btn").innerHTML = "";
     $("partner-btn").append(
-      Object.assign(document.createElement("span"), { className: "pe", textContent: TYPES[p].emoji }),
       Object.assign(document.createElement("span"), { textContent: `${p} · ${TYPES[p].name}` }),
       Object.assign(document.createElement("span"), { className: "arrow", textContent: "→" })
     );
@@ -157,7 +155,7 @@
     const code = new URLSearchParams(location.search).get("type");
     const t = TYPES[code];
     const url = `${location.origin}${location.pathname}?type=${code}`;
-    const text = `나의 풋살 MBTI는 ${code} · ${t.emoji} ${t.name}! 너는 어떤 유형이야? ⚽`;
+    const text = `나의 풋살 MBTI는 ${code} · ${t.name}! 너는 어떤 유형이야? ⚽`;
     if (navigator.share) {
       try {
         await navigator.share({ title: "풋살 MBTI", text, url });
@@ -188,8 +186,7 @@
         .forEach(([code, t]) => {
           const b = document.createElement("button");
           b.className = "type-tile";
-          b.innerHTML = `<span class="te"></span><span class="tc"></span><span class="tn"></span>`;
-          b.querySelector(".te").textContent = t.emoji;
+          b.innerHTML = `<span class="tc"></span><span class="tn"></span>`;
           b.querySelector(".tc").textContent = code;
           b.querySelector(".tn").textContent = t.name;
           b.onclick = () => {
