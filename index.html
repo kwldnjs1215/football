@@ -21,18 +21,12 @@
       <h1>풋살 <span class="hl">MBTI</span></h1>
       <p class="lead">실력 말고, <b>풋살장에서의 나</b>를 발견하는<br />16가지 풋살 성격 테스트</p>
 
-      <div class="axes-preview">
-        <div><b>D</b> 돌파형 <i>vs</i> 연계형 <b>P</b></div>
-        <div><b>I</b> 직감형 <i>vs</i> 관찰형 <b>O</b></div>
-        <div><b>F</b> 승부형 <i>vs</i> 즐겜형 <b>C</b></div>
-        <div><b>L</b> 콜형 <i>vs</i> 묵묵형 <b>M</b></div>
-      </div>
 
       <form id="name-form" class="card">
         <label for="name-input">닉네임을 알려주세요</label>
         <input id="name-input" type="text" maxlength="12" placeholder="예) 지원" autocomplete="off" required />
         <button type="submit" class="btn primary">테스트 시작하기 →</button>
-        <p class="hint">20문항 · 약 2분</p>
+        <p class="hint">20문항</p>
       </form>
     </section>
 
@@ -64,15 +58,38 @@
         <div class="report-hero">
           <p class="result-owner" id="result-owner"></p>
           <h2 class="result-name" id="result-name"></h2>
-          <p class="result-tagline" id="result-tagline"></p>
         </div>
 
         <div class="letters" id="letters"></div>
 
         <div class="report-body">
-          <blockquote class="result-quote" id="result-quote"></blockquote>
+          <div class="quote-box">
+            <span class="quote-label">제일 많이 하는 말</span>
+            <blockquote class="result-quote" id="result-quote"></blockquote>
+          </div>
           <p class="result-desc" id="result-desc"></p>
-          <p class="result-role"><span>추천 포지션</span><b id="result-role"></b></p>
+          <section class="position">
+            <div class="position-text">
+              <h3>추천 포지션</h3>
+              <p class="position-name" id="result-role"></p>
+              <ul id="position-desc"></ul>
+            </div>
+            <svg class="pitch" viewBox="0 0 120 180" aria-hidden="true">
+              <rect x="4" y="4" width="112" height="172" rx="3" class="pl" />
+              <line x1="4" y1="90" x2="116" y2="90" class="pl" />
+              <circle cx="60" cy="90" r="14" class="pl" />
+              <circle cx="60" cy="90" r="1.5" class="pd" />
+              <path d="M30 4 A30 30 0 0 0 90 4" class="pl" />
+              <path d="M30 176 A30 30 0 0 1 90 176" class="pl" />
+              <rect x="50" y="0.5" width="20" height="3.5" class="pl" />
+              <rect x="50" y="176" width="20" height="3.5" class="pl" />
+              <g class="spot" data-pos="피보"><circle cx="60" cy="40" r="7" /><text x="60" y="55">피보</text></g>
+              <g class="spot" data-pos="알라"><circle cx="24" cy="92" r="7" /><text x="24" y="107">알라</text></g>
+              <g class="spot" data-pos="알라"><circle cx="96" cy="92" r="7" /><text x="96" y="107">알라</text></g>
+              <g class="spot" data-pos="픽소"><circle cx="60" cy="134" r="7" /><text x="60" y="149">픽소</text></g>
+              <g class="spot gk"><circle cx="60" cy="164" r="5" /></g>
+            </svg>
+          </section>
 
           <section class="block">
             <h3><em>01</em>플레이 스타일</h3>

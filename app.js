@@ -60,6 +60,7 @@
       state.done = true;
       setTimeout(() => {
         renderResult(code, scores, state.name);
+        saveResult(state.name, code, scores);
         history.replaceState(null, "", `?type=${code}`);
       }, 250);
     }
@@ -122,6 +123,22 @@
     });
   }
 
+  const POSITION_DESC = {
+    피보: "최전방에서 공 받아 지키고, 돌아서서 마무리",
+    알라: "측면을 오르내리며 공격도 수비도 다 함",
+    픽소: "맨 뒤에서 수비를 정리하고 빌드업 시작",
+  };
+
+  function renderPosition(role) {
+    const picks = role.split("·").map((r) => r.trim());
+    $("result-role").textContent = picks.join(" · ");
+    document.querySelectorAll(".pitch .spot[data-pos]").forEach((g) => {
+      g.classList.toggle("on", picks.includes(g.dataset.pos));
+    });
+    $("position-desc").innerHTML = "";
+    picks.forEach((p) => $("position-desc").appendChild(el("li", null, `${p}: ${POSITION_DESC[p]}`)));
+  }
+
   function renderMatch(target, kind, code) {
     const other = kind === "best" ? bestMatchOf(code) : worstMatchOf(code);
     const t = TYPES[other];
@@ -146,9 +163,7 @@
     $("report-no").textContent = `No. ${code}`;
     $("result-owner").textContent = name ? `${name}님의 풋살 유형` : "풋살 유형";
     $("result-name").textContent = t.name;
-    $("result-tagline").textContent = t.tagline;
-    $("result-quote").textContent = `“${t.quote}”`;
-    $("result-role").textContent = t.role;
+    $("result-quote").textContent = t.quote;
     $("result-desc").textContent = t.desc;
     list("result-play", t.play);
     list("result-mental", t.mental);
@@ -156,11 +171,21 @@
     $("result-strength").textContent = t.strength;
     $("result-tip").textContent = t.tip;
     renderLetters(code, scores);
+    renderPosition(t.role);
     renderMatch("match-good", "best", code);
     renderMatch("match-bad", "worst", code);
 
     $("btn-retry").textContent = scores ? "다시 하기" : "나도 테스트하기";
     show("screen-result");
+  }
+
+  // 이름 + 결과를 서버(Cloudflare D1)에 저장. 실패해도 화면엔 영향 없음
+  function saveResult(name, code, scores) {
+    fetch("/api/results", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, type: code, scores, answers: state.answers.join("") }),
+    }).catch(() => {});
   }
 
   async function share() {

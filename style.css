@@ -98,20 +98,6 @@ h1 {
 .lead { font-size: 17px; line-height: 1.6; opacity: 0.92; margin: 0 0 24px; }
 .lead b { color: var(--lime); }
 
-.axes-preview {
-  display: grid;
-  gap: 8px;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-.axes-preview div {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px;
-}
-.axes-preview b { color: var(--lime); font-weight: 800; }
-.axes-preview i { font-style: normal; opacity: 0.5; margin: 0 6px; font-size: 12px; }
 
 #name-form { text-align: left; margin-top: 20px; color: var(--ink); }
 #name-form label { font-weight: 700; display: block; margin-bottom: 10px; }
@@ -190,7 +176,6 @@ h1 {
 .report-hero { padding: 26px 22px 18px; border-bottom: 2px solid var(--ink); }
 .result-owner { margin: 0; font-size: 13px; color: var(--muted); font-weight: 600; }
 .result-name { font-size: 40px; line-height: 1.1; margin: 6px 0 8px; font-weight: 900; letter-spacing: -0.035em; }
-.result-tagline { margin: 0; font-size: 15px; font-weight: 600; color: var(--pitch-2); }
 
 .letters { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 2px solid var(--ink); }
 .letter {
@@ -215,25 +200,40 @@ h1 {
 
 .report-body { padding: 6px 22px 24px; }
 
+.quote-box { margin: 18px 0 14px; padding-left: 14px; border-left: 4px solid var(--lime-dark); }
+.quote-label { font-size: 12px; font-weight: 700; color: var(--muted); }
 .result-quote {
-  margin: 18px 0 14px;
-  padding: 0 0 0 14px;
-  border-left: 4px solid var(--lime-dark);
+  margin: 4px 0 0;
   font-size: 19px;
   font-weight: 800;
   line-height: 1.4;
 }
 .result-desc { margin: 0; font-size: 15px; line-height: 1.75; color: #2a3530; }
-.result-role {
-  display: flex;
-  justify-content: space-between;
-  margin: 16px 0 0;
-  padding: 10px 0;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  font-size: 14px;
+
+/* 추천 포지션 + 경기장 */
+.position {
+  display: grid;
+  grid-template-columns: 1fr 112px;
+  gap: 16px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 16px;
+  background: #eef2ea;
+  border-radius: 6px;
 }
-.result-role span { color: var(--muted); }
+.position h3 { margin: 0; font-size: 12px; color: var(--muted); font-weight: 700; }
+.position-name { margin: 4px 0 10px; font-size: 22px; font-weight: 900; letter-spacing: -0.02em; }
+.position ul { margin: 0; padding: 0; list-style: none; }
+.position li { font-size: 13px; line-height: 1.55; color: #2a3530; }
+.position li + li { margin-top: 6px; }
+.pitch { width: 100%; display: block; background: var(--pitch-2); border-radius: 4px; }
+.pitch .pl { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 1.2; }
+.pitch .pd { fill: rgba(255, 255, 255, 0.55); }
+.pitch .spot circle { fill: rgba(255, 255, 255, 0.25); }
+.pitch .spot text { display: none; font-size: 9px; font-weight: 800; fill: #fff; text-anchor: middle; font-family: inherit; }
+.pitch .spot.on circle { fill: var(--lime); stroke: #fff; stroke-width: 1.5; }
+.pitch .spot.on text { display: block; }
+.pitch .spot.gk circle { fill: rgba(255, 255, 255, 0.15); }
 
 .block { padding-top: 22px; }
 .block h3 { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px; font-size: 16px; font-weight: 800; }
