@@ -148,7 +148,7 @@
       el("p", "match-kicker", kind === "best" ? "찰떡 파트너" : "최악의 궁합"),
       el("p", "match-code", other),
       el("p", "match-name", t.name),
-      el("p", "match-line", kind === "best" ? "같이 뛰면 골이 터지는 사이" : "같은 팀 되면 단톡방이 조용해지는 사이"),
+      el("p", "match-line", kind === "best" ? "같이 뛰면 골이 터지는 사이" : "같이 뛰면 서로 답답해지는 사이"),
       el("h4", null, kind === "best" ? "왜 잘 맞냐면" : "왜 파국이냐면")
     );
     const ol = el("ol");
