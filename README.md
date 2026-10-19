@@ -19,6 +19,8 @@
 - `data.js`: **문항과 16유형 설명 (내용 수정은 여기서)**
 - `app.js`: 점수 계산·화면 전환·공유
 - `style.css`: 디자인
+- `functions/api/results.js`: 결과 저장 API (Cloudflare Pages Functions)
+- `schema.sql`: 결과 저장용 D1 테이블
 
 빌드 과정 없는 순수 정적 사이트입니다.
 
@@ -37,3 +39,19 @@ npx serve .
 5. (선택) Custom domains 탭에서 구매한 도메인 연결
 
 이후 GitHub에 push할 때마다 자동으로 다시 배포됩니다.
+
+## 결과 저장 (Cloudflare D1)
+
+테스트가 끝나면 닉네임·유형·축별 비율·응답을 `results` 테이블에 저장합니다. DB를 연결하지 않아도 테스트 자체는 정상 동작합니다.
+
+1. Cloudflare 대시보드 → Storage & Databases → D1 → Create database (이름 예: `futsal-mbti`)
+2. 만든 DB → Console 탭에 `schema.sql` 내용을 붙여넣고 실행
+3. Pages 프로젝트 → Settings → Bindings → Add → D1 database, 변수 이름 `DB`, 방금 만든 DB 선택
+4. Deployments에서 최신 배포를 Retry(재배포)
+
+저장된 결과는 D1 Console에서 볼 수 있습니다.
+
+```sql
+SELECT name, type, created_at FROM results ORDER BY id DESC;
+SELECT type, COUNT(*) AS n FROM results GROUP BY type ORDER BY n DESC;
+```
