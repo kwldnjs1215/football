@@ -246,8 +246,6 @@ h1 {
   border-bottom: 1px dashed var(--rule);
 }
 .block li:last-child { border-bottom: 0; }
-.block p { margin: 0; font-size: 14px; line-height: 1.65; color: #2a3530; }
-.block.split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 
 /* ---------- 궁합 카드 ---------- */
 .match-heading { color: #fff; font-size: 20px; margin: 32px 0 12px; }
@@ -321,5 +319,4 @@ footer {
 @media (max-width: 360px) {
   h1 { font-size: 46px; }
   .q-text { font-size: 22px; }
-  .block.split { grid-template-columns: 1fr; }
-}
+  }
