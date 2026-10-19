@@ -168,6 +168,11 @@
     $("result-quote").textContent = t.quote;
     $("result-desc").textContent = t.desc;
     list("result-play", t.play);
+    if (t.gk) {
+      const li = el("li", "gk-line");
+      li.append(el("b", null, "골레이로를 맡으면"), el("span", null, t.gk));
+      $("result-play").appendChild(li);
+    }
     list("result-mental", t.mental);
     list("result-team", t.team);
     $("result-strength").textContent = t.strength;
