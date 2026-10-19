@@ -6,7 +6,7 @@
   <title>풋살 MBTI · 풋살장에서의 나는?</title>
   <meta name="description" content="여성 풋살러를 위한 풋살 성격 테스트. 20문항으로 알아보는 나의 풋살 유형 16가지." />
   <meta property="og:title" content="풋살 MBTI · 풋살장에서의 나는?" />
-  <meta property="og:description" content="실력 테스트 말고, 풋살장에서의 나를 발견하는 성격 테스트 ⚽" />
+  <meta property="og:description" content="실력 테스트 말고, 풋살장에서의 나를 발견하는 성격 테스트" />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#0f3d2e" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -17,7 +17,7 @@
   <main id="app">
     <!-- 시작 화면 -->
     <section id="screen-intro" class="screen active">
-      <div class="pitch-badge">⚽ WOMEN'S FUTSAL</div>
+      <div class="pitch-badge">WOMEN'S FUTSAL</div>
       <h1>풋살 <span class="hl">MBTI</span></h1>
       <p class="lead">실력 말고, <b>풋살장에서의 나</b>를 발견하는<br />16가지 풋살 성격 테스트</p>
 
@@ -34,8 +34,6 @@
         <button type="submit" class="btn primary">테스트 시작하기 →</button>
         <p class="hint">20문항 · 약 2분</p>
       </form>
-
-      <button class="btn link" id="btn-all-intro">16유형 전체 보기</button>
     </section>
 
     <!-- 문항 화면 -->
@@ -55,75 +53,68 @@
       </div>
     </section>
 
-    <!-- 결과 화면 -->
+    <!-- 결과 화면: 선수 스카우팅 리포트 -->
     <section id="screen-result" class="screen">
-      <div class="result-card" id="result-card">
-        <p class="result-owner" id="result-owner"></p>
-        <div class="result-code" id="result-code"></div>
-        <h2 class="result-name" id="result-name"></h2>
-        <p class="result-tagline" id="result-tagline"></p>
-        <blockquote class="result-quote" id="result-quote"></blockquote>
-        <p class="result-role">추천 포지션 · <b id="result-role"></b></p>
-      </div>
+      <article class="report">
+        <header class="report-head">
+          <span>FUTSAL PLAYER REPORT</span>
+          <span id="report-no"></span>
+        </header>
 
-      <div class="card" id="axis-card">
-        <h3>나의 풋살 성향</h3>
-        <div id="axis-bars"></div>
-      </div>
-
-      <div class="card">
-        <p class="result-desc" id="result-desc"></p>
-      </div>
-
-      <div class="card section">
-        <h3>⚽ 플레이 스타일</h3>
-        <ul id="result-play"></ul>
-      </div>
-      <div class="card section">
-        <h3>🧠 풋살 멘탈</h3>
-        <ul id="result-mental"></ul>
-      </div>
-      <div class="card section">
-        <h3>🤝 팀원 관계</h3>
-        <ul id="result-team"></ul>
-      </div>
-
-      <div class="duo">
-        <div class="card mini">
-          <h4>💪 나의 무기</h4>
-          <p id="result-strength"></p>
+        <div class="report-hero">
+          <p class="result-owner" id="result-owner"></p>
+          <h2 class="result-name" id="result-name"></h2>
+          <p class="result-tagline" id="result-tagline"></p>
         </div>
-        <div class="card mini">
-          <h4>🌱 성장 포인트</h4>
-          <p id="result-tip"></p>
-        </div>
-      </div>
 
-      <div class="card partner" id="partner-card">
-        <h4>💞 찰떡 파트너</h4>
-        <button class="partner-btn" id="partner-btn"></button>
+        <div class="letters" id="letters"></div>
+
+        <div class="report-body">
+          <blockquote class="result-quote" id="result-quote"></blockquote>
+          <p class="result-desc" id="result-desc"></p>
+          <p class="result-role"><span>추천 포지션</span><b id="result-role"></b></p>
+
+          <section class="block">
+            <h3><em>01</em>플레이 스타일</h3>
+            <ul id="result-play"></ul>
+          </section>
+          <section class="block">
+            <h3><em>02</em>풋살 멘탈</h3>
+            <ul id="result-mental"></ul>
+          </section>
+          <section class="block">
+            <h3><em>03</em>팀원 관계</h3>
+            <ul id="result-team"></ul>
+          </section>
+          <section class="block split">
+            <div>
+              <h3><em>04</em>나의 무기</h3>
+              <p id="result-strength"></p>
+            </div>
+            <div>
+              <h3><em>05</em>성장 포인트</h3>
+              <p id="result-tip"></p>
+            </div>
+          </section>
+        </div>
+      </article>
+
+      <h3 class="match-heading">나랑 같은 팀이 되면?</h3>
+      <div class="match-grid">
+        <article class="match good" id="match-good"></article>
+        <article class="match bad" id="match-bad"></article>
       </div>
 
       <div class="actions">
         <button class="btn primary" id="btn-share">결과 공유하기</button>
         <button class="btn ghost" id="btn-retry">다시 하기</button>
-        <button class="btn link" id="btn-all">16유형 전체 보기</button>
       </div>
-    </section>
-
-    <!-- 전체 유형 -->
-    <section id="screen-all" class="screen">
-      <div class="all-top">
-        <button class="btn icon" id="btn-all-back" aria-label="뒤로">←</button>
-        <h2>16가지 풋살 유형</h2>
-      </div>
-      <div class="type-grid" id="type-grid"></div>
     </section>
 
     <div class="toast" id="toast"></div>
   </main>
 
-  <footer>Made for women futsallers ⚽ · 실력이 아닌 성향 테스트입니다</footer>
+  <footer>Made for women futsallers · 실력이 아닌 성향 테스트입니다</footer>
 
   <script src="data.js"></script>
   <script src="app.js"></script>
