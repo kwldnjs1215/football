@@ -152,7 +152,7 @@
       el("h4", null, kind === "best" ? "왜 잘 맞냐면" : "왜 파국이냐면")
     );
     const ol = el("ol");
-    matchReasons(code, kind).forEach((r) => ol.appendChild(el("li", null, r)));
+    matchReasons(code, other, kind).forEach((r) => ol.appendChild(el("li", null, r)));
     box.appendChild(ol);
   }
 
