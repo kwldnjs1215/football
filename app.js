@@ -50,6 +50,7 @@
 
   function answer(choice) {
     if (state.done) return;
+    document.activeElement.blur();
     state.answers[state.index] = choice;
     if (state.index < QUESTIONS.length - 1) {
       state.index++;

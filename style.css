@@ -150,7 +150,10 @@ h1 {
   cursor: pointer;
   transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease;
 }
-.option:hover { border-color: var(--lime); }
+/* 터치 기기에서는 탭한 버튼에 hover가 남아 다음 문항까지 켜져 보이므로 마우스 기기에서만 적용 */
+@media (hover: hover) {
+  .option:hover { border-color: var(--lime); }
+}
 .option:active { transform: scale(0.98); }
 .option.picked { border-color: var(--lime); background: #f6fde4; }
 
