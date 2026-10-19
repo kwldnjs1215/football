@@ -1,0 +1,10 @@
+# Cloudflare Pages 설정 (GitHub push 시 자동 배포에 사용)
+name = "futsal-mbti"
+pages_build_output_dir = "."
+compatibility_date = "2025-01-01"
+
+# 결과 저장용 D1 데이터베이스 (functions/api/results.js 에서 env.DB 로 사용)
+[[d1_databases]]
+binding = "DB"
+database_name = "futsal-mbti"
+database_id = "728dad2c-c7cc-4300-a3c9-81434d96a9f2"
