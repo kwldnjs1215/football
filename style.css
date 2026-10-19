@@ -193,8 +193,8 @@ h1 {
   pointer-events: none;
 }
 .result-owner { margin: 0; opacity: 0.85; font-size: 15px; }
-.result-emoji { font-size: 72px; margin: 12px 0 4px; line-height: 1.1; }
 .result-code {
+  margin-top: 20px;
   display: inline-block;
   font-size: 15px;
   font-weight: 900;
@@ -253,7 +253,6 @@ h1 {
   color: var(--ink);
   text-align: left;
 }
-.partner-btn .pe { font-size: 24px; }
 .partner-btn .arrow { margin-left: auto; color: var(--muted); }
 
 .actions { display: grid; gap: 10px; margin-top: 20px; }
@@ -279,8 +278,7 @@ h1 {
   transition: transform 0.12s ease;
 }
 .type-tile:active { transform: scale(0.97); }
-.type-tile .te { font-size: 28px; }
-.type-tile .tc { font-size: 12px; font-weight: 900; letter-spacing: 0.15em; color: var(--pitch-2); margin-top: 4px; }
+.type-tile .tc { font-size: 12px; font-weight: 900; letter-spacing: 0.15em; color: var(--pitch-2); }
 .type-tile .tn { font-size: 15px; font-weight: 700; }
 
 /* ---------- 기타 ---------- */
