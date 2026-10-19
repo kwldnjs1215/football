@@ -235,6 +235,20 @@ h1 {
 .pitch .spot.on text { display: block; }
 .pitch .spot.gk circle { fill: rgba(255, 255, 255, 0.15); }
 
+/* 닮은 선수 */
+.player {
+  margin-top: 12px;
+  padding: 16px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 6px;
+}
+.player-label { margin: 0; font-size: 12px; font-weight: 700; color: var(--lime); }
+.player-name { margin: 4px 0 8px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.player-name b { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; }
+.player-name span { font-size: 13px; color: rgba(255, 255, 255, 0.6); }
+.player-why { margin: 0; font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.88); }
+
 .block { padding-top: 22px; }
 .block h3 { display: flex; align-items: baseline; gap: 8px; margin: 0 0 10px; font-size: 16px; font-weight: 800; }
 .block h3 em { font-style: normal; font-size: 12px; color: var(--pitch-2); font-weight: 900; letter-spacing: 0.05em; }
