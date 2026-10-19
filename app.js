@@ -172,6 +172,10 @@
     $("result-tip").textContent = t.tip;
     renderLetters(code, scores);
     renderPosition(t.role);
+    const pl = PLAYERS[code];
+    $("player-name").textContent = pl.name;
+    $("player-nation").textContent = pl.nation;
+    $("player-why").textContent = pl.why;
     renderMatch("match-good", "best", code);
     renderMatch("match-bad", "worst", code);
 
